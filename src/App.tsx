@@ -22,11 +22,15 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-function getPrepearedGoods(
+function getPreparedGoods(
   goods: string[],
   options: { sortField: SortType | ''; isReversed: boolean },
 ): string[] {
   const prepearedSortGoods = [...goods];
+
+  if (options.sortField === SortType.Reset) {
+    return goods;
+  }
 
   if (options.sortField) {
     prepearedSortGoods.sort((good1, good2) => {
@@ -53,7 +57,7 @@ function getPrepearedGoods(
 export const App: React.FC = () => {
   const [sortField, setSortField] = useState<SortType | ''>('');
   const [isReversed, setIsReversed] = useState<boolean>(false);
-  const sortGoods: string[] = getPrepearedGoods(goodsFromServer, {
+  const sortGoods: string[] = getPreparedGoods(goodsFromServer, {
     sortField,
     isReversed,
   });
